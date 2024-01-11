@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Document</title>
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+     <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+<body>
+     <div id="main">
+          <div class="left">  
+               <div class="nav">
+                    <form action="/weather" method="post" autocomplete="off">
+                         <input id="username" name="city" type="text" placeholder="Enter a City" required autofocus>
+                         <!-- <input name="city" type="text" placeholder="Enter a City" class="form-control"> -->
+                         <button>Search</button>
+                    </form>
+                    <div class="mid1">
+                         <div class="suggestion">
+                              <div></div>
+                         </div>
+                    </div>
+               </div>
+
+               <% if(error !== null){ %>
+                    <div class="null">
+                         <img src="https://www.realmazon.com/images/error-img.png" alt="">
+                    </div>
+               <% } else if(main === "Clouds"){ %>
+                    <video src="/images/Video/cloud.mp4" autoplay muted loop></video>
+                    <!-- <img src="https://images.unsplash.com/photo-1583946078429-ee8fb232b8ba?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" alt=""> -->
+               <% } else if(main === "Mist"){ %> 
+                    <img src="https://images.unsplash.com/photo-1561485039-765c8e81686d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" alt="">    
+               <% } else if(main === "Haze"){ %>
+                    <video src="/images/Video/Fog - 115749.mp4" muted autoplay loop></video>
+                    <!-- <img src="https://images.unsplash.com/photo-1534193098843-b26ac3289bc8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Zm9nZ3klMjBza3l8ZW58MHx8MHx8&w=1000&q=80" alt=""> -->
+               <% } else if(main === "Rain"){ %>
+                    <video src="/images/Video/Flashes - 31342.mp4" autoplay muted loop></video>
+                    <!-- <img src="https://ptvnews.ph/wp-content/uploads/2022/01/natsuki-4DsowKunk84-unsplash-scaled.jpg" alt=""> -->
+               <% } else if(temp < 16){ %>
+                    <video src="/images/Video/Snowfall - 29314.mp4" autoplay muted loop></video>
+                    <!-- <img src="https://feeds.abplive.com/onecms/images/uploaded-images/2021/12/05/8d54fde2a8db56df52dd57c83027d523_0.jpg" alt=""> -->
+               <% } else if(temp < 21){ %>
+                    <video src="/images/Video/Full Moon - 23269.mp4" autoplay muted loop></video>
+               <% } else if(temp < 26){ %>
+                    <video src="/images/Video/Sunset - 8451.mp4" autoplay muted loop></video>
+                    <!-- <img src="https://images.unsplash.com/photo-1488866022504-f2584929ca5f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1162&q=80" alt=""> -->
+               <% } else if(temp > 26){ %>
+                    <video src="/images/Video/Sunset - 8451.mp4" autoplay muted loop></video>
+                    <!-- <img src="https://images.unsplash.com/photo-1619994948937-ef1e758d46ca?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1333&q=80" alt=""> -->
+               <% } else if(temp > 32){ %>
+                    <video src="/images/Video/clear.mp4" autoplay muted loop></video>
+                    <!-- <img src="https://cdn.newsbook.com.mt/wp-content/uploads/2020/11/20180028/photo1-scaled.jpg" alt=""> -->
+               <% } %>
+               <div class="data">
+                    <%if( weather !== null){ %>
+                         <div class="grid">
+                              <h3 id="temp"><%= temp %>°C</h3>
+                              <h3><%= fahrenheit %>°F</h3>
+                              <p id="plc"><%= place %></p>
+                         </div>
+                         <img src="<%= icon %>" alt="Weather-Icon">
+                         <h3><%= main %></h3>
+                    <% } %>
+                    <% if(error !== null){ %>
+                         <p id="error"><%= error %></p>
+                    <% } %>     
+               </div>
+               
+               <div class="right">
+                    <%if( weather !== null){ %>
+                         <div class="grid">
+                              <p><%= place %></p>
+                              <p class="small"><%= timezone %></p>
+                         </div>
+                    <div class="buttom">
+                         <h2>Weather Details</h2>
+                         <div class="weather">
+                              <h3>Overall Description:</h3>
+                              <h3><%= description %></h3>
+                         </div>
+                         <div class="weather">
+                              <h3>Cloud coverage:</h3>
+                              <h3> <%= clouds %></h3>
+                         </div>
+                         <div class="weather">
+                              <h3>Visibility:</h3>
+                              <h3><%= visibility %> meters</h3>
+                         </div>
+                         <div class="weather">
+                              <h3>Humidity:</h3>
+                              <!-- <h3><%= humidity %> g.m-3</h3> -->
+                              <h3><%= humidity %> %</h3>
+                         </div>
+                         <div class="weather">
+                              <h3>Pressure:</h3>
+                              <h3><%= pressure %> N·m−2</h3>
+                         </div>
+                    </div>
+               </div>
+               <% } %>
+             
+               <% if(error !== null){ %>
+                    <p><%= error %></p>
+               <% } %>
+          </div>
+     </div>
+
+
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.1.3/axios.min.js" integrity="sha512-0qU9M9jfqPw6FKkPafM3gy2CBAvUWnYVOfNPDYKVuRTel1PrciTj+a9P3loJB+j0QmN2Y0JYQmkBBS8W+mbezg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"crossorigin="anonymous"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"crossorigin="anonymous"></script>
+     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"crossorigin="anonymous"></script>
+     <script src="/javascripts/voice.js"></script>
+     <script src="/javascripts/profile.js"></script>
+</body>
+</html>

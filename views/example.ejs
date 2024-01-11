@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Document</title>
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+     <link rel="stylesheet" href="/stylesheets/style.css">
+     <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+</head>
+<body>
+     <div id="main">
+          <div class="left">  
+               <div class="nav">
+                    <form action="/weather" method="post" autocomplete="off">
+                         <input id="username" name="city" type="text" placeholder="Enter a Place Name" required autofocus>
+                         <!-- <button>Search</button> -->
+                         <button><i class="ri-search-line"></i></button>
+                    </form>
+                    <div class="mid1">
+                         <div class="suggestion">
+                              <div></div>
+                         </div>
+                    </div>
+               </div>
+
+               <% if(error !== null){ %>
+                    <div class="null">
+                         <!-- <img src="https://www.realmazon.com/images/error-img.png" alt=""> -->
+                         <!-- <img src="/images/uploads/not found.jpg" alt=""> -->
+                         <img src="/images/uploads/not found1.gif" alt="">
+                    </div>
+               <% } else if(main === "Clouds"){ %>
+                    <video src="/images/Video/cloud.mp4" autoplay muted loop></video>
+               <% } else if(main === "Mist"){ %> 
+                    <img src="https://images.unsplash.com/photo-1561485039-765c8e81686d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" alt="">    
+
+               <% } else if(main === "Haze"){ %>
+                    <video src="/images/Video/Fog - 115749.mp4" muted autoplay loop></video>
+
+               <% } else if(main === "Rain"){ %>
+                    <video src="/images/Video/Flashes - 31342.mp4" autoplay muted loop></video>
+
+               <% } else if(temp < 16){ %>
+                    <video src="/images/Video/Snowfall - 29314.mp4" autoplay muted loop></video>
+
+               <% } else if(temp < 21){ %>
+                    <video src="/images/Video/Full Moon - 23269.mp4" autoplay muted loop></video>
+
+               <% } else if(temp < 26){ %>
+                    <video src="/images/Video/Sunset - 8451.mp4" autoplay muted loop></video>
+
+               <% } else if(temp > 26){ %>
+                    <video src="/images/Video/Sunset - 8451.mp4" autoplay muted loop></video>
+
+               <% } else if(temp > 32){ %>
+                    <video src="/images/Video/clear.mp4" autoplay muted loop></video>
+               <% } %>
+
+               <div class="time">
+                    <%if( weather !== null){ %>
+                         <p class="small"><%= timezone %></p>
+                         <p id="plc"><%= place %></p>
+                    <% } %>
+               </div>
+               <div class="dataR">
+                    <%if( weather !== null){ %>
+                         <div class="grid">
+                              <h3 id="temp"><%= temp %>°C</h3>
+                              <h3><%= main %></h3>
+                         </div>
+                    <% } %>
+                    <% if(error !== null){ %>
+                         <p id="error"><%= error %></p>
+                    <% } %>     
+               </div>
+               
+               <div class="btm">
+                    <%if( weather !== null){ %>
+                         <div id="sky" class="btm1">
+                              <h3>Overall Description:</h3>
+                              <!-- <i class="ri-file-search-line"></i> -->
+                              <img src="<%= icon %>" alt="Weather-Icon">
+                              <h3><%= description %></h3>
+                         </div>
+                         <div class="btm1">
+                              <h3>Cloud coverage:</h3>
+                              <i class="ri-sun-cloudy-line"></i>
+                              <h3> <%= clouds %></h3>
+                         </div>
+                         <div class="btm1">
+                              <h3>Visibility:</h3>
+                              <i class="ri-eye-fill"></i>
+                              <h3><%= visibility %> meters</h3>
+                         </div>
+                         <div class="btm1">
+                              <h3>Humidity:</h3>
+                              <i class="ri-contrast-drop-line"></i>
+                              <h3><%= humidity %> %</h3>
+                         </div>
+                         <div class="btm1">
+                              <h3>Pressure:</h3>
+                              <i class="ri-dashboard-3-line"></i>
+                              <h3><%= pressure %> N·m−2</h3>
+                         </div>
+                    <% } %>
+               </div>
+             
+               <% if(error !== null){ %>
+                    <p><%= error %></p>
+               <% } %>
+          </div>
+     </div>
+
+
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.1.3/axios.min.js" integrity="sha512-0qU9M9jfqPw6FKkPafM3gy2CBAvUWnYVOfNPDYKVuRTel1PrciTj+a9P3loJB+j0QmN2Y0JYQmkBBS8W+mbezg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"crossorigin="anonymous"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"crossorigin="anonymous"></script>
+     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"crossorigin="anonymous"></script>
+     <script src="/javascripts/voice.js"></script>
+     <script src="/javascripts/profile.js"></script>
+</body>
+</html>
